@@ -1,6 +1,6 @@
 import { Actor, Vector, CollisionType, Timer } from "excalibur";
 import { Resources } from "./resources.js";
-import { BuiltTower } from "./buildTower.js";
+import { BuildTower } from "./buildTower.js";
 import { Arrow } from "./arrows.js";
 import { Game } from "./game.js";
 

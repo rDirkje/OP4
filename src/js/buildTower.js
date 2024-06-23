@@ -4,7 +4,7 @@ import { Arrow } from "./arrows.js"
 
 
 // Klasse voor het bouwen van een toren
-export class BuiltTower extends Actor {
+export class BuildTower extends Actor {
     constructor(x, y, width, height, sprite, hp) {
         super({
             pos: new Vector(x, y),
@@ -35,7 +35,7 @@ export class BuiltTower extends Actor {
 }
 
 // Hier worden hardcoded alle torens ingezet
-export class PurpleTower extends BuiltTower {
+export class PurpleTower extends BuildTower {
     constructor(x, y, width, height,) {
 
         super(x, y, width, height, Resources.purpleTower.toSprite(), 200);
@@ -54,7 +54,7 @@ export class PurpleTower extends BuiltTower {
 
 }
 
-export class PinkTower extends BuiltTower {
+export class PinkTower extends BuildTower {
     constructor(x, y, width, height,) {
 
         super(x, y, width, height, Resources.pinkTower.toSprite(), 500);

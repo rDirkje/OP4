@@ -14,8 +14,6 @@ const Resources = {
 
     TiledMapResource: new TiledResource('images/tilemap2.tmx'),
 
-    BackgroundImage: new ImageSource('images/background.jpeg')
-
 }
 
 const ResourceLoader = new Loader()

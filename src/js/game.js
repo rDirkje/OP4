@@ -4,34 +4,34 @@ import { ResourceLoader } from './resources.js'
 import { GameScene } from './gameScene.js'
 import { EndScene } from './endScene.js'
 import { StartScene } from './startScene.js'
-import { BuiltTower } from './buildTower.js'
+import { BuildTower } from './buildTower.js'
 
 export class Game extends Engine {
 
-    buildMode; // Buildmode variabele voor bijhouden of er gebouwd kan worden
-    typeOfTower; // Variabele voor het type toren
-    coins; // Variabele voor het bijhouden van de valuta
-    playerHealth;// Variabele voor spelers hp
+    // maak de grote variabelen hier aan
+    buildMode; 
+    typeOfTower; 
+    coins; 
+    playerHealth;
 
     constructor() {
         super({
-            // Grote van het scherm
             width: 1248,
             height: 704,
-            // Maximale FPS
             maxFps: 60,
-            //   displayMode: DisplayMode.FitScreen
         })
-        this.buildMode = false; // Bouwmodus standaard op false zodat er niet gelijk gebouwd kan worden
-        this.typeOfTower = null; // Type of tower leeg zetten
-        this.coins = 1000; // Standaard waarde op 200 zetten
+        this.buildMode = false; // staat op false zodat er niet direct gebouwd kan worden
+        this.typeOfTower = null; // zorg dat dit variabel leeg is
+        this.coins = 900; // stel een standaard begin-waarde in
         this.playerHealth = 1000;
 
+        // laad alle resources in
         this.start(ResourceLoader).then(() => {
+            // voeg alle scenes toe
             this.add("start", new StartScene(this));
             this.add("game", new GameScene(this));
             this.add("end", new EndScene(this));
-            this.goToScene("start");
+            this.goToScene("start"); // start de game in de startscene
         }
         )
 
@@ -39,28 +39,14 @@ export class Game extends Engine {
 
     playerTakesDamage() {
         if (this.playerHealth >= 150) {
-            this.playerHealth -= 500;
+            this.playerHealth -= 500; // verminder de hp van de player als deze nog boven de 150 is
 
         } else if (this.playerHealth <= 150) {
-            this.goToScene("end")
+            this.goToScene("end") // stuurt door naar de volgende scene bij een een hp lager dan 150
         }
     }
 
-
-    resetGame() {
-        this.buildMode = false;
-        this.typeOfTower = null;
-        this.coins = 1000;
-        this.playerHealth = 1000;
-
-        // Verwijder alle torens en vijanden
-        this.currentScene.actors.forEach(actor => {
-            actor.kill()
-
-        });
-
-    }
-
+    // zorg dat de game reset
 
 }
 
