@@ -1,8 +1,7 @@
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 
-
-// voeg hier jouw eigen resources toe
+// voeg hier alle resources toe
 const Resources = {
     purpleUI: new ImageSource('images/purpleTower.png'),
     pinkUI: new ImageSource('images/pinkTower.png'),
@@ -16,6 +15,7 @@ const Resources = {
 
 }
 
+// maak een resourceloader aan zodat de resources opgehaald kunnen worden
 const ResourceLoader = new Loader()
 for (let res of Object.values(Resources)) {
     ResourceLoader.addResource(res)

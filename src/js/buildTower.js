@@ -3,38 +3,37 @@ import { Resources } from "./resources.js";
 import { Arrow } from "./arrows.js"
 
 
-// Klasse voor het bouwen van een toren
+// maak een klasse aan voor het bouwen van de torens
 export class BuildTower extends Actor {
     constructor(x, y, width, height, sprite, hp) {
         super({
             pos: new Vector(x, y),
             width: width,
             height: height,
-            collisionType: CollisionType.Fixed // Collisiontype meegeven
+            collisionType: CollisionType.Fixed 
         });
         this.z = 10;
-        this.hp = hp; // HP meegeven
+        this.hp = hp; 
         this.graphics.use(sprite);
 
 
     }
 
     onInitialize(engine) {
-        engine.addTimer(this.shootingTimer); // Timer toevoegen aan de game wanneer de toren gebouwd is
-        this.shootingTimer.start(); // Timer aanzetten
+        engine.addTimer(this.shootingTimer); // geef een timer mee an de game wanneer een toren gebouwd is
+        this.shootingTimer.start(); // start de timer
     }
 
     takeDamage(amount) {
-        this.hp -= amount; // Wanneer damage, HP erafco
+        this.hp -= amount; 
         if (this.hp <= 0) {
-            this.kill(); // Verwijder de toren als HP op is
+            this.kill(); // haal de toren weg wanneer de hp minder dan 0 is
         }
     }
 
 
 }
 
-// Hier worden hardcoded alle torens ingezet
 export class PurpleTower extends BuildTower {
     constructor(x, y, width, height,) {
 
@@ -46,7 +45,7 @@ export class PurpleTower extends BuildTower {
     shootArrow() {
         if (!this.scene) {
 
-            return; // Stop de functie als er geen scène beschikbaar is.
+            return;
         }
         let arrow = new Arrow(this.pos.x + this.width, this.pos.y + this.height / 5, 500, 10, Resources.purpleArrow.toSprite());
         this.scene.add(arrow);
@@ -66,17 +65,17 @@ export class PinkTower extends BuildTower {
     shootArrow() {
         if (!this.scene) {
 
-            return; // Stop de functie als er geen scène beschikbaar is.
+            return; 
         }
         let arrow = new Arrow(this.pos.x + this.width, this.pos.y + this.height / 5, 200, 150, Resources.pinkArrow.toSprite());
         this.scene.add(arrow);
     }
 }
 
-// Functie voor het plaatsen van een toren
+// maak een functie voor het plaatsen van een torebn
 export function placeTower(engine, x, y, width, height, typeOfTower) {
 
-    let tower; // Variabel waarin het torentype wordt gemaakt
+    let tower; 
 
     if (typeOfTower === 'purpleTower') {
         if (engine.coins >= 100) {

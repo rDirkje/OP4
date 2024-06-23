@@ -3,7 +3,7 @@ import { Resources } from './resources.js'
 import { placeTower } from './buildTower.js';
 
 
-// Klasse voor het maken van de achtergrond map
+// maak een klasse aan voor de achtergrond van de game scene
 export class CreateTileMap extends Actor {
     constructor(game) {
         super();
@@ -14,22 +14,22 @@ export class CreateTileMap extends Actor {
      * @param {*} engine 
      */
     onInitialize(engine) {
-        Resources.TiledMapResource.addToScene(engine.currentScene)
+        Resources.TiledMapResource.addToScene(engine.currentScene) // laad de tilemap in vanuit resources
     }
 }
 
-// Klasse voor het maken van de grid overlay
+// maak een klasse voor de grid overlay
 export class CreateMapGridOverlay extends Actor {
     constructor(game, cellPositions, cellSize) {
         super();
-        this.cellPositions = cellPositions; // Dit zijn de posities van de cellen waarop uiteindlijk torens komen
-        this.cellSize = cellSize; // Hieruit komt de grote van de cellen
-        this.gridCells = []; // Hierin worden de hoeveelheid cellen opgeslagen
-        this.game = game // Dit haalt alle informatie uit game.js op
+        this.cellPositions = cellPositions; // de posities van de cellen
+        this.cellSize = cellSize; // grote van de cellen
+        this.gridCells = []; // sla de hoeveelheid cellen op
+        this.game = game // haal de info op uit game.js
     }
 
     onInitialize(engine) {
-        // Maakt voor elke ingevoerde positie/cell in de array een gridcell aan
+        // maak een gridcell aan voor elke cell in de array
         this.cellPositions.forEach(pos => {
             const cell = new GridCell(
                 this.game,
@@ -40,17 +40,16 @@ export class CreateMapGridOverlay extends Actor {
             );
 
 
-            this.gridCells.push(cell); // Zet de cells in een array
+            this.gridCells.push(cell); // zet het in een array
 
-            engine.add(cell); // Voegt de cells toe aan de game
+            engine.add(cell); 
         });
-        console.log(this.gridCells)
 
     }
 
 }
 
-// Klasse voor het maken van een gridcell
+// maak een klasse voor het maken van gridcellen
 class GridCell extends Actor {
     constructor(game, x, y, width, height) {
         super({
@@ -60,18 +59,18 @@ class GridCell extends Actor {
 
         });
 
-        this.game = game; // Game ophalen zodat ie meegegeven kan worden aan de functie
+        this.game = game;
     
     }
 
-    // Wanneer er wordt geklikt op een gridcell, zet bouwmodus uit en type toren weer leeg
+    // regel de gebeurtenissen van het klikken op de gridcellen
     onInitialize(engine) {
         this.on('pointerdown', () => {
             if (this.game.buildMode && this.game.typeOfTower && !this.hasTower) {
                 placeTower(engine, this.pos.x, this.pos.y, this.width, this.height, this.game.typeOfTower);
-                this.game.buildMode = false; // Schakel bouwmodus uit na plaatsen
-                this.game.typeOfTower = null; // Reset de geselecteerde toren
-                this.hasTower = true; // Zorgt dat er niet nog een toren geplaatst kan worden
+                this.game.buildMode = false; // schakel bouwmodus uit
+                this.game.typeOfTower = null; // haal het weer leeg zodat er een nieuwe toren gekozen kan worden
+                this.hasTower = true; // voorkom 2 torens op 1 cell plaatsen
             }
         });
     }

@@ -3,12 +3,14 @@ import { CreateTileMap, CreateMapGridOverlay } from './createWorld.js';
 import { UI } from './ui.js';
 import { SpiderEnemySpawner } from './spawnEnemy.js';
 
+// maak een nieuwe klasse die werkt als scene
 export class GameScene extends Scene {
 
     constructor(game) {
         super();
-        this.game = game; // Bewaar de game instantie
+        this.game = game; 
     }
+
     onInitialize(engine) {
         engine.playerHealth = 1000;
 
@@ -18,6 +20,7 @@ export class GameScene extends Scene {
         const ui = new UI(this.game);
         this.add(ui)
 
+        // geef aan op welke plekken er torens gebouwd kunnen worden
         const cellPositions = [
             new Vector(370, 555), new Vector(470, 555), new Vector(570, 555), new Vector(670, 555), 
             new Vector(370, 400), new Vector(470, 400), new Vector(570, 400), new Vector(670, 400), 
